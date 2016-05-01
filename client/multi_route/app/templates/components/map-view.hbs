@@ -1,0 +1,10 @@
+{{#leaflet-map lat=lat lng=lng zoom=zoom onClick=(action "addMarker") as |layers|}}
+  {{layers.tile url="https://{s}.tile.hosted.thunderforest.com/komoot-2/{z}/{x}/{y}.png"}}
+
+  {{#each markers as |marker|}}
+    {{#layers.marker location=marker}}
+      lat: {{marker.lat}}<br>
+      lng: {{marker.lng}}
+    {{/layers.marker}}
+  {{/each}}
+{{/leaflet-map}}
