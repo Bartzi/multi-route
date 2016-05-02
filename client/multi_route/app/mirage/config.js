@@ -1,4 +1,6 @@
 export default function() {
+  this.namespace = '/api';
+
   this.get('/locations', function() {
     return {
       data: [{
@@ -11,6 +13,9 @@ export default function() {
       }]
     };
   });
+
+  this.passthrough();
+  this.passthrough('http://127.0.0.1:5000/**');
 
   // These comments are here to help you get started. Feel free to delete them.
 

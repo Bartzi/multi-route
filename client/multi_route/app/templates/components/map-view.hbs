@@ -6,5 +6,7 @@
       lat: {{marker.lat}}<br>
       lng: {{marker.lng}}
     {{/layers.marker}}
+    {{#layers.polyline locations=route}}
+    {{/layers.polyline}}
   {{/each}}
 {{/leaflet-map}}
