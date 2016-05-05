@@ -1,10 +1,10 @@
-{{#leaflet-map lat=lat lng=lng zoom=zoom onClick=(action "addMarker") as |layers|}}
+{{#leaflet-map lat=lat lng=lng zoom=zoom onContextmenu=(action "addMarker") as |layers|}}
   {{layers.tile url="https://{s}.tile.hosted.thunderforest.com/komoot-2/{z}/{x}/{y}.png"}}
 
   {{#each markers as |marker|}}
     {{#layers.marker location=marker}}
-      lat: {{marker.lat}}<br>
-      lng: {{marker.lng}}
+    	{{#route-marker lat=marker.lat lng=marker.lng}}
+    	{{/route-marker}}
     {{/layers.marker}}
     {{#layers.polyline locations=route}}
     {{/layers.polyline}}

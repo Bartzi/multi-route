@@ -36,7 +36,8 @@ module.exports = function(environment) {
       'connect-src': "'self' *",
       'img-src': "'self' *",
       'style-src': "'self' 'unsafe-inline'"
-    }
+    },
+    photonApiEndpoint: 'https://photon.komoot.de/api/'
   };
 
   if (environment === 'development') {

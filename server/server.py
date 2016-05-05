@@ -63,7 +63,7 @@ def decode_line(encoded):
 
 
 @app.route('/route')
-def hello_world():
+def route():
     data = request.args.get('path')
 
     url = "https://www.komoot.de/api/routing/route"
@@ -82,6 +82,28 @@ def hello_world():
     data = r.json()
     return json.dumps({'route': data["latlngs"]})
 
+@app.route('/reverse')
+def reverse():
+    lat = request.args.get('lat')
+    lng = request.args.get('lng')
+
+    reverse_endpoint = 'https://photon.komoot.de/reverse'
+
+    params = {
+        'lon': lng,
+        'lat': lat,
+    }
+
+    r = requests.get(reverse_endpoint, params=params)
+    data = r.json()
+    location_properties = data['features'][0]['properties']
+    return json.dumps({
+        'housenumber': location_properties.get('housenumber', ''),
+        'city': location_properties.get('city', ''),
+        'street': location_properties.get('street', ''),
+        'postcode': location_properties.get('postcode', ''),
+    })
+
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
