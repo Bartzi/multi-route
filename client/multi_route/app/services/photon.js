@@ -14,5 +14,11 @@ export default Ember.Service.extend({
 			'reverse',
 			{data: {lng: lng, lat: lat}}
 		);
+	},
+	findPois(name) {
+		return this.get('ajax').request(
+			'find',
+			{data: {location: name}}
+		);
 	}
 });

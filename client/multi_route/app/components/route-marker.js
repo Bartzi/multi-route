@@ -21,7 +21,7 @@ const RouteMarker = Ember.Component.extend({
 				that.set('loadingIndicator', '');
 			})
 			.catch(function(error) {
-				Ember.LOgger.error(error);
+				Ember.Logger.error(error);
 			});
 	}
 });

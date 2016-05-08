@@ -1,0 +1,10 @@
+<div class="input-field col s6">
+	{{input value=filter key-up=(action 'autoComplete')}}
+	<label>Search</label>
+</div>
+
+{{#md-collection class='over-map black-text' content=pois as |poi|}}
+	<div class='collection-item'>
+		{{poi.name}}, {{poi.housenumber}}, {{poi.postcode}}, {{poi.city}}, {{poi.country}}
+	</div>
+{{/md-collection}}

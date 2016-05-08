@@ -82,6 +82,7 @@ def route():
     data = r.json()
     return json.dumps({'route': data["latlngs"]})
 
+
 @app.route('/reverse')
 def reverse():
     lat = request.args.get('lat')
@@ -103,6 +104,35 @@ def reverse():
         'street': location_properties.get('street', ''),
         'postcode': location_properties.get('postcode', ''),
     })
+
+
+@app.route('/find')
+def find():
+    location = request.args.get('location')
+
+    endpoint = 'https://photon.komoot.de/api/'
+
+    params = {
+        'q': location,
+    }
+
+    r = requests.get(endpoint, params=params)
+    allowed_osm_types = ['w', 'r']
+    data = filter(lambda x: x['properties']['osm_type'].lower() in allowed_osm_types, r.json()['features'])
+    return json.dumps([
+        {
+            'coordinates': {
+                'lat': item['geometry']['coordinates'][0],
+                'lng': item['geometry']['coordinates'][1],
+            },
+            'country': item['properties'].get('country', ''),
+            'city': item['properties'].get('city', ''),
+            'postcode': item['properties'].get('postcode', ''),
+            'name': item['properties'].get('name', None) or item['properties'].get('street', ''),
+            'state': item['properties'].get('state', ''),
+            'housenumber': item['properties'].get('housenumber', ''),
+        } for item in data
+    ])
 
 
 if __name__ == '__main__':
